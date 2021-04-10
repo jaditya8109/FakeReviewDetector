@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Best Surprise</title>
+  <title>Fake Review Detector</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -34,80 +34,48 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
-    <div class="container d-flex align-items-center">
+ <!-- ======= Header ======= -->
+ <header id="header" class="fixed-top d-flex align-items-center color">
+  <div class="container d-flex align-items-center">
 
-      <div class="logo mr-auto">
-        <h1 class="text-light"><a href="/">Best Surprise</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li><a  style="color: black;" href="/">Home</a></li>
-          <li class="active" ><a href="/form" style="color: black;">Get Started</a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
-
+    <div class="logo mr-auto">
+      <h1 class="text-light"><a href="/">Fake Review Detector</a></h1>
     </div>
-  </header><!-- End Header -->
 
+    <nav class="nav-menu d-none d-lg-block">
+      <ul>
+        <li class="active"><a href="/">Home</a></li>
 
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
+      </ul>
+    </nav>
 
-        <div class="section-title" data-aos="zoom-out">
-          <h2>MESSAGE FORM</h2>
-          <p>Share your type-written message with your loved ones!</p>
-        </div>
+  </div>
+</header>
 
+<section id="result">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <h1 class="text-center ccllaa"><%=message%></h1>
+        <h1 class="text-center ccllaa"><%=message2%></h1>
+        <h3 class="text-center ccllaa">Percentage of fake reviews:  <%=percentFakeReview%>% </h3>
+        <h3 class="text-center ccllaa">No of fake reviews detected:  <%=fakeReview%></h3>
         
-        <p style="color: black;"></p>
-          <div class="col-lg-12 mt-5 mt-lg-0" data-aos="fade-left">
-
-            <form action="/form" method="post" class="php-email-form">
-              <div class="form-row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="sendername" class="form-control" id="sendername" placeholder="Your Name" required />
-                 
-                </div>
-                <div class="col-md-6 form-group">
-                  <input type="text" class="form-control" name="recievername" id="recievername" placeholder="Reciever's Name" required/>
-                  
-                </div>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="15" placeholder="Message" required></textarea>
-                
-              </div>
-    
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-
-          </div>
-
-        </div>
-
+        
       </div>
-    </section><!-- End Contact Section -->
+    </div>
+  </div>
+  
+</section>
 
-  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
-      <h3>Surprise.me</h3>
-      <p>Making people happy, one letter at a time</p>
-      
-      <div class="copyright">
-        &copy; Copyright <strong><span>Surprise.me</span></strong>. All Rights Reserved
-      </div>
+      <h3>Fake Review Detector</h3>
+      <p>Making people aware. Safe Shoppping!</p>
       <div class="credits">
-
-        Designed by <a href="https://vrushtimody.me/">Vrushti Mody</a> and <a href="https://rohanpoojari.netlify.app/">Rohan Poojari</a>
+        Designed by <a href="https://www.linkedin.com/in/aditya-jain-479b96157/">Aditya jain</a>
       </div>
     </div>
   </footer><!-- End Footer -->

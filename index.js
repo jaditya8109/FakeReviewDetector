@@ -81,7 +81,15 @@ async function getoutput(productURL){
       percentFakeReview = ((fakeReview)/(prediction.length))*100;
       averageConfidence = result/fakeReview;
       console.log("sum of confidence ="+ result,"No of fake reviews ="+ fakeReview,"percentage of fake review ="+ percentFakeReview,"average confidence =" + averageConfidence, "for URl =" + productURL);
-      let jsondata = {"percentFakeReview" : percentFakeReview, "averageConfidence" : averageConfidence};
+      if(percentFakeReview >= 65){
+        let message = "Very high number of fake reviews";
+        let message2 = "Product not recomended for purchase";
+      }else{
+        message = "Low number of fake reviews";
+        message2 = "Product recomended for purchase";
+      }
+      let jsondata = {"percentFakeReview" : percentFakeReview, "averageConfidence" : averageConfidence, "fakeReview" : fakeReview,
+       "message" : message, "messasge2" : message2};
       return jsondata;
       // console.log(jsondata);
 };
@@ -95,17 +103,14 @@ app.get("/", (req,res)=>{
   res.render('index');
 });
 
-
-app.get("/hello", (req,res)=>{
-  res.render('form');
-});
-
 app.post('/result', async(req, res)=> {
   // console.log(req.body.link);
   try{
 
     let data = await getoutput(req.body.link);
-    res.send(data);
+    // res.send(data);
+    // console.log(data);
+    res.render('form', {percentFakeReview : data.percentFakeReview, averageConfidence : data.averageConfidence, fakeReview : data.fakeReview, message : data.message, messasge2 : data.message2 });
 
   }catch(err){
     throw err;
