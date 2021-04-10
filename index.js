@@ -4,6 +4,9 @@ const axios = require('axios');
 const fs = require('fs');
 var bodyParser = require('body-parser');
 var path = require('path');
+const puppeteer = require('puppeteer');
+const CronJob = require('cron').CronJob;
+const nodemailer = require('nodemailer');
 var app     = express(); 
 
 app.set('view engine' , 'ejs');
@@ -94,6 +97,65 @@ async function getoutput(productURL){
       // console.log(jsondata);
 };
 
+// for tracking price
+async function configureBrowser(url) {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url);
+  return page;
+}
+
+async function checkPrice(page) {
+  await page.reload();
+  let html = await page.evaluate(() => document.body.innerHTML);
+  // console.log(html);
+
+  $('#priceblock_dealprice', html).each(function() {
+      let dollarPrice = $(this).text();
+      // console.log(dollarPrice);
+      let currentPrice = Number(dollarPrice.replace(/[^0-9.-]+/g,""));
+
+      if (currentPrice < 300) {
+          console.log("BUY!!!! " + currentPrice);
+          sendNotification(currentPrice);
+      }
+  });
+}
+
+async function startTracking(url) {
+  const page = await configureBrowser(url);
+
+  let job = new CronJob('* */30 * * * *', function() { //runs every 30 minutes in this config
+    checkPrice(page);
+  }, null, true, null, null, true);
+  job.start();
+}
+
+async function sendNotification(price) {
+
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '@gmail.com',
+      pass: '***'
+    }
+  });
+
+  let textToSend = 'Price dropped to ' + price;
+  let htmlText = `<a href=\"${url}\">Link</a>`;
+
+  let info = await transporter.sendMail({
+    from: '"Price Tracker" <@gmail.com>',
+    to: '',
+    subject: 'Price dropped to ' + price, 
+    text: textToSend,
+    html: htmlText
+  });
+
+  console.log("Message sent: %s", info.messageId);
+}
+
+
 //routes  
 app.get("/form", (req,res)=>{
   res.render('collectURL');
@@ -105,8 +167,9 @@ app.get("/", (req,res)=>{
 
 app.post('/result', async(req, res)=> {
   // console.log(req.body.link);
+  // startTracking(req.body.link);
   try{
-
+    
     let data = await getoutput(req.body.link);
     // res.send(data);
     // console.log(data);
