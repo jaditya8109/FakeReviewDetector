@@ -95,6 +95,11 @@ app.get("/", (req,res)=>{
   res.render('index');
 });
 
+
+app.get("/hello", (req,res)=>{
+  res.render('form');
+});
+
 app.post('/result', async(req, res)=> {
   // console.log(req.body.link);
   try{
