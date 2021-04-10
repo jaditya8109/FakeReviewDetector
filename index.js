@@ -3,9 +3,11 @@ var express = require('express');
 const axios = require('axios');
 const fs = require('fs');
 var bodyParser = require('body-parser');
+var path = require('path');
 var app     = express(); 
 
 app.set('view engine' , 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -85,10 +87,14 @@ async function getoutput(productURL){
 };
 
 //routes  
-app.get("/", (req,res)=>{
+app.get("/form", (req,res)=>{
   res.render('collectURL');
 });
-  
+
+app.get("/", (req,res)=>{
+  res.render('index');
+});
+
 app.post('/result', async(req, res)=> {
   // console.log(req.body.link);
   try{

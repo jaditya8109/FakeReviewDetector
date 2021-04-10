@@ -20,6 +20,7 @@
     "fetch": "^1.1.0",
     "mustache": "^4.0.1",
     "node-fetch": "^2.6.1",
+    "path": "^0.12.7",
     "request": "^2.88.2"
   },
   "engines": {
